@@ -1,0 +1,37 @@
+<li id="<%= feed_item.id %>">
+  <%= link_to gravatar_for(feed_item.user), feed_item.user %>
+  <span class="user">
+    <%= link_to feed_item.user.name, feed_item.user %>
+    <br>
+  </span>
+  <span class="content">
+    <b><%= feed_item.title %></b><br>
+    <%= feed_item.body %>
+  </span>
+  <span class="timestamp">
+    <i>Posted <%= time_ago_in_words(feed_item.created_at) %> ago.</i>
+  </span>
+  <% if current_user?(feed_item.user) %>
+    <%= link_to "delete", feed_item, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: feed_item.title %>
+  <% end %>
+ <% @entry=feed_item %>
+    <% if @entry.comments.any? %>
+        <h4>Comments (<%= @entry.comments.count %>)</h4>
+        <ol class="cmt">
+          <% @entry.comments.each do |i|%>
+            <li>
+              <span class="content">
+              
+              <%= i.user.name %> : <%= i.content %>
+              <i><h6><%= i.created_at %></h6></i>
+              </span>
+            </li>
+          <%end%>
+        </ol>
+      <% end %>
+  <% if signed_in? %>
+        <%= render 'shared/comment_form',entry: @entry%>
+  <%end%>
+</li>

@@ -1,0 +1,40 @@
+<% provide(:title, 'Home')
+	#provide(:curr,'Tutorial Ruby in Rails')
+ %>
+<% if signed_in? %>
+<div class="row">
+  <aside class="span4">
+    <section>
+        <%= render 'shared/user_info' %>
+    </section>
+    <section>
+        <%= render 'shared/stats' %>
+    </section>
+    <section>
+        <%= render 'shared/entry_form' %>
+    </section>
+  </aside>
+    <div class="span8">
+      <h3>Entries Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+</div>
+<% else %>
+   <div class="center hero-unit">
+  <h1>Welcome to the Sample App</h1>
+	<%= link_to image_tag("rails.png",alt:"image"),'http://google.com',id:"img_yenvv"%>
+  <h2>
+    This is the home page for the
+    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+    sample application.
+  </h2>
+
+  <%= link_to "Sign up now!",signup_path, class: "btn btn-large btn-primary" %>
+</div>
+
+    <p>
+      This is the home page for the
+      <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+      sample application.
+    </p>
+<% end %>

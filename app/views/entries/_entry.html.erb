@@ -1,0 +1,29 @@
+<li>
+  <span class="content">
+  	<b><%= entry.title %></b><br>
+  	<%= entry.body %><br>
+  </span>
+  <span class="timestamp">
+    <i>Posted <%= time_ago_in_words(entry.created_at) %> ago.</i><br>
+      
+  </span>
+  <% if current_user?(entry.user) %>
+  	<%= link_to "delete", entry, method: :delete, data: {confirm: "Ban chac chan muon xoa? "},title: entry.body %>
+  <% end%>
+  <% if entry.comments.any? %>
+      <h4>Comments (<%= entry.comments.count %>)</h4>
+      <ol class="cmt">
+        <% entry.comments.each do |i|%>
+          <li>
+            <span class="content">
+              <%= i.user.name %> : <%= i.content %>
+              <i><h6><%= i.created_at %></h6></i>
+            </span>
+          </li>
+        <%end %>
+      </ol>
+    <% end %>
+  <% if signed_in? %>
+          <%= render 'shared/comment_form',entry: entry%>
+  <%end%>
+</li>
